@@ -1,0 +1,2 @@
+CREATE TABLE "public"."users" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "username" text, "email" text NOT NULL, "password_hash" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "updated_at" timestamptz DEFAULT now(), "role" text NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("role") REFERENCES "public"."roles"("role_id") ON UPDATE restrict ON DELETE restrict, UNIQUE ("email"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

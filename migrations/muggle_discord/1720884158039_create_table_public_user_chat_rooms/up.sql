@@ -1,0 +1,2 @@
+CREATE TABLE "public"."user_chat_rooms" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "user_id" uuid NOT NULL, "chat_room_id" uuid NOT NULL, "joined_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON UPDATE no action ON DELETE cascade, FOREIGN KEY ("chat_room_id") REFERENCES "public"."chat_rooms"("id") ON UPDATE no action ON DELETE cascade);
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
