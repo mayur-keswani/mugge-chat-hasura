@@ -13,6 +13,13 @@ array_relationships:
         table:
           name: chat_rooms
           schema: public
+  - name: messages
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: messages
+          schema: public
   - name: user_chat_rooms
     using:
       foreign_key_constraint_on:
@@ -20,3 +27,26 @@ array_relationships:
         table:
           name: user_chat_rooms
           schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - email
+        - id
+        - username
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - username
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        updated_at: now()
+    comment: ""
