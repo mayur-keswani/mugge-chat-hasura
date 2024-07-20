@@ -31,12 +31,8 @@ select_permissions:
   - role: user
     permission:
       columns:
-        - email
-        - id
         - username
-      filter:
-        id:
-          _eq: X-Hasura-User-Id
+      filter: {}
     comment: ""
 update_permissions:
   - role: user

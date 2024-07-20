@@ -1,0 +1,44 @@
+type Mutation {
+  login(
+    credentials: LoginInput!
+  ): LoginOutput
+}
+
+type Mutation {
+  register(
+    credentials: RegisterInput!
+  ): RegisterOutput!
+}
+
+enum RoleType {
+  user
+  superuser
+}
+
+input RegisterInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type RegisterOutput {
+  accessToken: String!
+  userId: String!
+  email: String!
+  username: String!
+  roleType: RoleType!
+}
+
+type LoginOutput {
+  accessToken: String!
+  userId: String!
+  email: String!
+  username: String!
+  roleType: RoleType!
+}
+
