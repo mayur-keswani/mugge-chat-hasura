@@ -1,0 +1,3 @@
+table:
+  name: user_chat_rooms
+  schema: public
