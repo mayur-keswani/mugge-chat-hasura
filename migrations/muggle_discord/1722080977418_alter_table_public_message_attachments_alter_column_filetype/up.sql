@@ -1,1 +1,1 @@
-alter table "public"."message_attachments" alter column "filetype" set not null;
+alter table "public"."message_attachments"  rename column "file_type" to "filetype";
