@@ -13,6 +13,12 @@ actions:
     permissions:
       - role: anonymous
       - role: user
+  - name: upload
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/upload'
+    permissions:
+      - role: user
 custom_types:
   enums:
     - name: RoleType
@@ -26,7 +32,9 @@ custom_types:
   input_objects:
     - name: RegisterInput
     - name: LoginInput
+    - name: AttachmentInput
   objects:
     - name: RegisterOutput
     - name: LoginOutput
+    - name: AttachmentOutput
   scalars: []

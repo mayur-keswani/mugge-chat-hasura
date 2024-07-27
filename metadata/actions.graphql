@@ -10,6 +10,12 @@ type Mutation {
   ): RegisterOutput!
 }
 
+type Mutation {
+  upload(
+    attachment: AttachmentInput!
+  ): AttachmentOutput!
+}
+
 enum RoleType {
   user
   superuser
@@ -26,6 +32,12 @@ input LoginInput {
   password: String!
 }
 
+input AttachmentInput {
+  base64: String!
+  filename: String!
+  filetype: String!
+}
+
 type RegisterOutput {
   accessToken: String!
   userId: String!
@@ -40,5 +52,11 @@ type LoginOutput {
   email: String!
   username: String!
   roleType: RoleType!
+}
+
+type AttachmentOutput {
+  url: String!
+  filename: String!
+  filetype: String!
 }
 

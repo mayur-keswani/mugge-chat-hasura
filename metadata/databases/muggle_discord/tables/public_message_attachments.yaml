@@ -1,0 +1,32 @@
+table:
+  name: message_attachments
+  schema: public
+object_relationships:
+  - name: message
+    using:
+      foreign_key_constraint_on: message_id
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        _or:
+          - message:
+              chat_room:
+                created_by:
+                  _eq: X-Hasura-User-Id
+          - message:
+              chat_room:
+                user_chat_rooms:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+      columns:
+        - url
+        - filetype
+        - message_id
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns: []
+      filter: {}
+    comment: ""
