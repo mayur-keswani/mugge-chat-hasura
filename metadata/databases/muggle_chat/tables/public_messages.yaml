@@ -1,0 +1,80 @@
+table:
+  name: messages
+  schema: public
+object_relationships:
+  - name: chat_room
+    using:
+      foreign_key_constraint_on: chat_room_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+array_relationships:
+  - name: message_attachments
+    using:
+      foreign_key_constraint_on:
+        column: message_id
+        table:
+          name: message_attachments
+          schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        _or:
+          - chat_room:
+              created_by:
+                _eq: X-Hasura-User-Id
+          - chat_room:
+              user_chat_rooms:
+                user_id:
+                  _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+      columns:
+        - chat_room_id
+        - content
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - chat_room_id
+        - content
+        - created_at
+        - id
+        - user_id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - content
+      filter:
+        _or:
+          - chat_room:
+              created_by:
+                _eq: X-Hasura-User-Id
+          - chat_room:
+              user_chat_rooms:
+                user_id:
+                  _eq: X-Hasura-User-Id
+          - user_id:
+              _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        _or:
+          - chat_room:
+              created_by:
+                _eq: X-Hasura-User-Id
+          - chat_room:
+              user_chat_rooms:
+                user_id:
+                  _eq: X-Hasura-User-Id
+          - user_id:
+              _eq: X-Hasura-User-Id
+    comment: ""
